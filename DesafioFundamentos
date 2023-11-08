@@ -1,0 +1,71 @@
+using DesafioFundamentos.Models;
+using System;
+
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+var precoInicial = 0.0;
+var precoPorHora = 0.0;
+
+Console.WriteLine("Seja bem-vindo ao sistema de estacionamento!");
+precoInicial = LerDecimal("Digite o preço inicial:");
+precoPorHora = LerDecimal("Agora digite o preço por hora:");
+
+var estacionamento = new Estacionamento(precoInicial, precoPorHora);
+
+bool exibirMenu = true;
+
+do
+{
+    Console.Clear();
+    Console.WriteLine("Digite a sua opção:");
+    Console.WriteLine("1 - Cadastrar veículo");
+    Console.WriteLine("2 - Remover veículo");
+    Console.WriteLine("3 - Listar veículos");
+    Console.WriteLine("4 - Encerrar");
+
+    var opcao = Console.ReadLine();
+
+    switch (opcao)
+    {
+        case "1":
+            estacionamento.AdicionarVeiculo();
+            break;
+
+        case "2":
+            estacionamento.RemoverVeiculo();
+            break;
+
+        case "3":
+            estacionamento.ListarVeiculos();
+            break;
+
+        case "4":
+            exibirMenu = false;
+            break;
+
+        default:
+            Console.WriteLine("Opção inválida");
+            break;
+    }
+
+    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.ReadLine();
+} while (exibirMenu);
+
+Console.WriteLine("O programa se encerrou");
+
+static double LerDecimal(string mensagem)
+{
+    while (true)
+    {
+        Console.Write(mensagem);
+        if (double.TryParse(Console.ReadLine(), out double valor))
+        {
+            return valor;
+        }
+        else
+        {
+            Console.WriteLine("Valor inválido. Tente novamente.");
+        }
+    }
+}
